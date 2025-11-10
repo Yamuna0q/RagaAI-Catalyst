@@ -1,0 +1,16 @@
+# Hybrid Cryptographic System Requirements
+
+# Core cryptography library
+cryptography>=41.0.0
+
+# QR code generation
+qrcode>=7.4.2
+
+# Image processing for QR codes
+pillow>=10.0.0
+
+# QR code decoding
+pyzbar>=0.1.9
+
+# Image reading for QR decoding
+opencv-python>=4.8.0
