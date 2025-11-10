@@ -7,9 +7,17 @@ import base64
 import json
 import qrcode
 from PIL import Image
-from pyzbar.pyzbar import decode as pyzbar_decode
-import cv2
-import numpy as np
+
+# Try to import pyzbar for QR decoding (optional)
+try:
+    from pyzbar.pyzbar import decode as pyzbar_decode
+    import cv2
+    import numpy as np
+    PYZBAR_AVAILABLE = True
+except ImportError:
+    PYZBAR_AVAILABLE = False
+    print("Warning: pyzbar not available. QR code decoding will be limited.")
+    print("To enable QR decoding, install: sudo dnf install zbar")
 
 
 class QRHandler:
@@ -62,7 +70,14 @@ class QRHandler:
             
         Raises:
             ValueError: If no QR code found or decoding fails
+            ImportError: If pyzbar is not available
         """
+        if not PYZBAR_AVAILABLE:
+            raise ImportError(
+                "QR code decoding requires pyzbar and zbar library. "
+                "Install with: sudo dnf install zbar && pip install pyzbar"
+            )
+        
         # Read image using OpenCV
         img = cv2.imread(image_path)
         
